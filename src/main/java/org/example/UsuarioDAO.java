@@ -2,7 +2,10 @@ package org.example;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioDAO {
 
@@ -38,4 +41,26 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
     }
+
+    public static List<Usuario> listar() {
+        String sql = "SELECT id, nome, email FROM usuarios ";
+        List<Usuario> usuarios = new ArrayList<>();
+        try (Connection conn = Conexao.conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql)){
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                String email = rs.getString("email");
+
+                Usuario usuario = new Usuario(nome, email, id);
+                usuarios.add(usuario);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuarios;
+    }
+
 }

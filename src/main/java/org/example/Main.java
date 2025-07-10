@@ -1,6 +1,7 @@
 package org.example;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -29,7 +30,7 @@ public class Main {
             sc.nextLine();
 
             switch (opcao) {
-                case 1:
+                case 1: {
                     System.out.print("Nome do aluno: ");
                     String nomeAluno = sc.nextLine();
                     System.out.print("Matrícula: ");
@@ -42,19 +43,27 @@ public class Main {
                     alunoDAO.AttCurso("23213", "mfer");
                     alunoDAO.Daluno("23213");
                     break;
+                }
 
-                case 2:
+                case 2: {
                     System.out.print("Nome do usuário: ");
                     String nomeUsuario = sc.nextLine();
                     System.out.print("Email: ");
                     String email = sc.nextLine();
+                    System.out.println("Digite o id do aluno: ");
+                    int id = sc.nextInt();
 
-                    Usuario usuario = new Usuario(nomeUsuario, email);
+                    Usuario usuario = new Usuario(nomeUsuario, email, id);
                     usuarioDAO.inserir(usuario);
                     usuarioDAO.atualizarEmail("julia", "hellen@gmail");
-                    break;
+                    List<Usuario> listar = UsuarioDAO.listar();
+                    for (Usuario u : listar) {
+                        System.out.println(u);
+                        break;
+                    }
+                }
 
-                case 3:
+                case 3: {
                     System.out.print("Nome do produto: ");
                     String nomeProduto = sc.nextLine();
                     System.out.print("Preço: ");
@@ -68,8 +77,8 @@ public class Main {
                     produtoDAO.Attpreco("touca", Double.parseDouble("60,00"));
                     produtoDAO.Dproduto("touca");
                     break;
-
-                case 4:
+                }
+                case 4: {
                     System.out.print("Título do livro: ");
                     String titulo = sc.nextLine();
                     System.out.print("Autor: ");
@@ -82,8 +91,8 @@ public class Main {
                     livrosDAO.inserir(livro);
                     livrosDAO.Attautor("geovanna", "mouse");
                     break;
-
-                case 5:
+                }
+                case 5: {
                     System.out.print("Nome do funcionário: ");
                     String nomeFuncionario = sc.nextLine();
                     System.out.print("Cargo: ");
@@ -97,8 +106,8 @@ public class Main {
                     funcionarioDAO.Attfuncionario(2.000, "zabeli");
                     funcionarioDAO.Dfuncionario("zabeli");
                     break;
-
-                case 6:
+                }
+                case 6: {
                     System.out.print("Nome do pedido: ");
                     String nomePedido = sc.nextLine();
                     LocalDate data = LocalDate.now();
@@ -113,17 +122,22 @@ public class Main {
                     pedidoDAO.Atttotal(3, 100);
                     pedidoDAO.Dpedido(1);
                     break;
-
-                case 0:
+                }
+                case 0: {
                     System.out.println("Encerrando o sistema...");
                     break;
-
-                default:
+                }
+                default: {
                     System.out.println("Opção inválida. Tente novamente.");
+                }
             }
 
         } while (opcao != 0);
 
         sc.close();
+
     }
 }
+
+
+
